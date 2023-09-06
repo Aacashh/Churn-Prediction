@@ -67,18 +67,19 @@ input_tensor = torch.tensor(input_data, dtype=torch.float32).unsqueeze(0)
 
 if st.button("Predict"):
     with st.spinner("Predicting..."):
+        # To display input tensor in the app
+        st.write("Input tensor:", input_tensor)
         with torch.no_grad():
             output = model(input_tensor)
             probs = torch.nn.functional.softmax(output, dim=1)
             predicted_class = torch.argmax(probs, dim=1).item()
-
+        # To display probabilities in the app
+        probs = torch.nn.functional.softmax(output, dim=1)
+        st.write("Probabilities:", probs)
+        predicted_class = torch.argmax(probs, dim=1).item()
+        st.write("Predicted class:", predicted_class)
     # Display Prediction
     st.header("Prediction")
-    ## for debugging
-    print("Input tensor:", input_tensor)
-    print("Predicted class:", predicted_class)
-    print("Raw output:", output)
-    print("Probabilities:", probs)
 
     if predicted_class == 1:
         st.success("The customer is likely to churn.")
