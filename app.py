@@ -33,7 +33,7 @@ class DenserNeuralNetwork(nn.Module):
         x = self.layer6(x)
         return x
 
-model = torch.load('churn-nn-model')
+model = torch.load('churn-nn-model', map_location=torch.device('cpu'))
 model.eval()
 
 st.title("Customer Churn Prediction")
