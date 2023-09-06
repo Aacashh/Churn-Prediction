@@ -5,6 +5,33 @@ import numpy as np
 
 labelencoder = LabelEncoder()
 
+class DenserNeuralNetwork(nn.Module):
+    def __init__(self, input_dim):
+        super(DenserNeuralNetwork, self).__init__()
+        self.layer1 = nn.Linear(input_dim, 256)
+        self.dropout1 = nn.Dropout(0.5)
+        self.layer2 = nn.Linear(256, 512)
+        self.dropout2 = nn.Dropout(0.5)
+        self.layer3 = nn.Linear(512, 256)
+        self.dropout3 = nn.Dropout(0.5)
+        self.layer4 = nn.Linear(256, 128)
+        self.dropout4 = nn.Dropout(0.5)
+        self.layer5 = nn.Linear(128, 64)
+        self.layer6 = nn.Linear(64, 2)
+
+    def forward(self, x):
+        x = torch.relu(self.layer1(x))
+        x = self.dropout1(x)
+        x = torch.relu(self.layer2(x))
+        x = self.dropout2(x)
+        x = torch.relu(self.layer3(x))
+        x = self.dropout3(x)
+        x = torch.relu(self.layer4(x))
+        x = self.dropout4(x)
+        x = torch.relu(self.layer5(x))
+        x = self.layer6(x)
+        return x
+
 model = torch.load('churn-nn-model')
 model.eval()
 
