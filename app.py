@@ -4,8 +4,6 @@ import torch.nn as nn
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
-labelencoder = LabelEncoder()
-
 class DenserNeuralNetwork(nn.Module):
     def __init__(self, input_dim):
         super(DenserNeuralNetwork, self).__init__()
@@ -48,9 +46,17 @@ subscription_length = st.sidebar.slider("Subscription Length (months)", 1, 24, 1
 monthly_bill = st.sidebar.slider("Monthly Bill ($)", 30.0, 100.0, 65.0)
 total_usage = st.sidebar.slider("Total Usage (GB)", 50.0, 500.0, 274.0)
 
-encoded_gender = labelencoder.fit_transform([gender])[0]
-encoded_location = labelencoder.fit_transform([location])[0]
-input_data = np.array([age, encoded_gender, encoded_location, subscription_length, monthly_bill, total_usage])
+gen_enc = LabelEncoder()
+gen_enc.classes_ = numpy.load('gen_enc.npy')
+loc_enc = LabelEncoder()
+loc_enc.classes_ = numpy.load('loc_enc.npy')
+encoded_gender = gen_enc.transform(df_clean['Gender'])[0]
+encoded_location = loc_enc.transform(df_clean['Location'])[0]
+
+bill_to_usage_ratio = monthly_bill / total_usage if total_usage != 0 else 0
+age_x_subscription_length = age * subscription_length
+
+input_data = np.array([age, encoded_gender, encoded_location, subscription_length, monthly_bill, total_usage, bill_to_usage_ratio, age_x_subscription_length])
 input_tensor = torch.tensor(input_data, dtype=torch.float32).unsqueeze(0)
 
 if st.button("Predict"):
