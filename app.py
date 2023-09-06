@@ -68,11 +68,13 @@ input_tensor = torch.tensor(input_data, dtype=torch.float32).unsqueeze(0)
 if st.button("Predict"):
     with st.spinner("Predicting..."):
         with torch.no_grad():
-            prediction = model(input_tensor)
+            output = model(input_tensor)
+            probs = torch.nn.functional.softmax(output, dim=1)
+            predicted_class = torch.argmax(probs, dim=1).item()
 
-    
+    # Display Prediction
     st.header("Prediction")
-    if prediction.item() > 0.5:
+    if predicted_class == 1:
         st.success("The customer is likely to churn.")
     else:
         st.success("The customer is likely to stay.")
