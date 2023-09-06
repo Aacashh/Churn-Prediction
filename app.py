@@ -56,8 +56,8 @@ with open('loc_enc.pkl', 'rb') as g:
 # gen_enc.classes_ = np.load('gen_enc.npy', allow_pickle=True).item()
 # loc_enc.classes_ = np.load('loc_enc.npy', allow_pickle=True).item()
 print(gender + " " + location)
-encoded_gender = gen_enc.transform([gender][0])
-encoded_location = loc_enc.transform([location][0])
+encoded_gender = gen_enc.transform([gender])[0]
+encoded_location = loc_enc.transform([location])[0]
 
 bill_to_usage_ratio = monthly_bill / total_usage if total_usage != 0 else 0
 age_x_subscription_length = age * subscription_length
