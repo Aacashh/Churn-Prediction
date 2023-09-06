@@ -51,6 +51,7 @@ gen_enc = np.load('gen_enc.npy', allow_pickle=True)
 # gen_enc.classes_ = np.load('gen_enc.npy', allow_pickle=True).item()
 loc_enc = np.load('loc_enc.npy', allow_pickle=True)
 # loc_enc.classes_ = np.load('loc_enc.npy', allow_pickle=True).item()
+print(gender + " " + location)
 encoded_gender = gen_enc.transform([gender][0])
 encoded_location = loc_enc.transform([location][0])
 
