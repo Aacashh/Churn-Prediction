@@ -51,8 +51,8 @@ total_usage = st.sidebar.slider("Total Usage (GB)", 50.0, 500.0, 274.0)
 with open('gen_enc.pkl', 'rb') as f:
     gen_enc = pickle.load(f)
 
-with open('loc_enc.pkl', 'rb') as f:
-    loc_enc = pickle.load(f)
+with open('loc_enc.pkl', 'rb') as g:
+    loc_enc = pickle.load(g)
 # gen_enc.classes_ = np.load('gen_enc.npy', allow_pickle=True).item()
 # loc_enc.classes_ = np.load('loc_enc.npy', allow_pickle=True).item()
 print(gender + " " + location)
