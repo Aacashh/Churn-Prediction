@@ -74,6 +74,12 @@ if st.button("Predict"):
 
     # Display Prediction
     st.header("Prediction")
+    ## for debugging
+    print("Input tensor:", input_tensor)
+    print("Predicted class:", predicted_class)
+    print("Raw output:", output)
+    print("Probabilities:", probs)
+
     if predicted_class == 1:
         st.success("The customer is likely to churn.")
     else:
