@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
+import pandas as pd
 
 class DenserNeuralNetwork(nn.Module):
     def __init__(self, input_dim):
@@ -47,11 +48,11 @@ monthly_bill = st.sidebar.slider("Monthly Bill ($)", 30.0, 100.0, 65.0)
 total_usage = st.sidebar.slider("Total Usage (GB)", 50.0, 500.0, 274.0)
 
 gen_enc = LabelEncoder()
-gen_enc.classes_ = np.load('gen_enc.npy', allow_pickle=True)
+gen_enc.classes_ = np.load('gen_enc.npy', allow_pickle=True).item()
 loc_enc = LabelEncoder()
-loc_enc.classes_ = np.load('loc_enc.npy', allow_pickle=True)
-encoded_gender = gen_enc.transform(df_clean['Gender'])[0]
-encoded_location = loc_enc.transform(df_clean['Location'])[0]
+loc_enc.classes_ = np.load('loc_enc.npy', allow_pickle=True).item()
+encoded_gender = gen_enc.transform([gender])[0]
+encoded_location = loc_enc.transform([location])[0]
 
 bill_to_usage_ratio = monthly_bill / total_usage if total_usage != 0 else 0
 age_x_subscription_length = age * subscription_length
