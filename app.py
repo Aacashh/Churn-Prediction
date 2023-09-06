@@ -47,10 +47,10 @@ subscription_length = st.sidebar.slider("Subscription Length (months)", 1, 24, 1
 monthly_bill = st.sidebar.slider("Monthly Bill ($)", 30.0, 100.0, 65.0)
 total_usage = st.sidebar.slider("Total Usage (GB)", 50.0, 500.0, 274.0)
 
-gen_enc = LabelEncoder()
-gen_enc.classes_ = np.load('gen_enc.npy', allow_pickle=True).item()
-loc_enc = LabelEncoder()
-loc_enc.classes_ = np.load('loc_enc.npy', allow_pickle=True).item()
+gen_enc = np.load('gen_enc.npy', allow_pickle=True).item()
+# gen_enc.classes_ = np.load('gen_enc.npy', allow_pickle=True).item()
+loc_enc = np.load('loc_enc.npy', allow_pickle=True).item()
+# loc_enc.classes_ = np.load('loc_enc.npy', allow_pickle=True).item()
 encoded_gender = gen_enc.transform([gender])[0]
 encoded_location = loc_enc.transform([location])[0]
 
