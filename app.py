@@ -47,9 +47,9 @@ monthly_bill = st.sidebar.slider("Monthly Bill ($)", 30.0, 100.0, 65.0)
 total_usage = st.sidebar.slider("Total Usage (GB)", 50.0, 500.0, 274.0)
 
 gen_enc = LabelEncoder()
-gen_enc.classes_ = numpy.load('gen_enc.npy')
+gen_enc.classes_ = np.load('gen_enc.npy')
 loc_enc = LabelEncoder()
-loc_enc.classes_ = numpy.load('loc_enc.npy')
+loc_enc.classes_ = np.load('loc_enc.npy')
 encoded_gender = gen_enc.transform(df_clean['Gender'])[0]
 encoded_location = loc_enc.transform(df_clean['Location'])[0]
 
