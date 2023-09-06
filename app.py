@@ -4,6 +4,7 @@ import torch.nn as nn
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import pandas as pd
+import pickle
 
 class DenserNeuralNetwork(nn.Module):
     def __init__(self, input_dim):
@@ -47,9 +48,12 @@ subscription_length = st.sidebar.slider("Subscription Length (months)", 1, 24, 1
 monthly_bill = st.sidebar.slider("Monthly Bill ($)", 30.0, 100.0, 65.0)
 total_usage = st.sidebar.slider("Total Usage (GB)", 50.0, 500.0, 274.0)
 
-gen_enc = np.load('gen_enc.npy', allow_pickle=True)
+with open('gen_enc.pkl', 'rb') as f:
+    gen_enc = pickle.load(f)
+
+with open('loc_enc.pkl', 'rb') as f:
+    loc_enc = pickle.load(f)
 # gen_enc.classes_ = np.load('gen_enc.npy', allow_pickle=True).item()
-loc_enc = np.load('loc_enc.npy', allow_pickle=True)
 # loc_enc.classes_ = np.load('loc_enc.npy', allow_pickle=True).item()
 print(gender + " " + location)
 encoded_gender = gen_enc.transform([gender][0])
